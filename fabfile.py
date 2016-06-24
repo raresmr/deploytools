@@ -5,7 +5,6 @@
 # Import Fabric's API module
 from fabric.api import *
 
-
 #env.hosts = [
 #    '10.0.15.21',
 #    '10.0.15.22'
@@ -25,9 +24,11 @@ def web2_prod():
 def all():
     env.hosts = ['10.0.15.21', '10.0.15.22']
 
+#env.roledefs = { 'stageup' : ['10.0.15.21', '10.0.15.22'], 'produp' : ['10.0.15.21', '10.0.15.22'] }
+
 def new_ver(max_ver):
    run("echo %s > ~/max" % max_ver)
-   # sudo("npm install -g npm@%s" % max_ver)
+   sudo("npm install -g npm@%s" % max_ver)
 
 def npm_ver():
      npmv = run("npm -v")
@@ -37,6 +38,7 @@ def npm_ver():
         print 'ok'
      return ip_ver
 
+#@roles("stageup","produp")
 def command():
      dict_v = npm_ver()
      print dict_v
